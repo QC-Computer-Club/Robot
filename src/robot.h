@@ -15,37 +15,58 @@
 namespace robot
 {
 
-const int start = 128;
-const int safe = 131;
-const int full = 132;
+const int START = 128;
+const int SAFE = 131;
+const int FULL = 132;
 
-const int startScript = 152;
-const int playScript = 153;
-const int showScript = 154;
+const int START_SCRIPT = 152;
+const int PLAY_SCRIPT = 153;
+const int SHOW_SCRIPT = 154;
 
-const int drive = 137;
-const int driveDirect = 145;
+const int DRIVE = 137;
+const int DRIVE_DIRECT = 145;
+
+const int WAIT_TIME = 155;
+const int WAIT_DISTANCE = 156;
+const int WAIT_ANGLE = 157;
+const int WAIT_EVENT = 158;
 
 
 void splitIntoTwoBytes(unsigned int num, unsigned int &high, unsigned int &low);
-const char* intToHex(unsigned int num);
+std::string intToHexString(unsigned int num);
+std::string drive();
 
 void splitIntoTwoBytes(unsigned int num, unsigned int &high, unsigned int &low)
 {
 	high = (num / 256) % 256;
 	low = num % 256;
+	//std::cout << "Split: " << high << " " << low << std::endl;
 }
 
-const char* intToHex(unsigned int num)
+std::string intToHexString(unsigned int num)
 {
 	std::stringstream c;
-	unsigned int high =0, low = 0;
-	splitIntoTwoBytes(num, high, low);
-	c << std::hex << std::setw(2) << std::setfill('0') << "\\x" << high;
-	c << std::hex << std::setw(2) << std::setfill('0') << "\\x" << low;
-	return c.str().c_str();
+	c << std::hex << std::setw(2) << std::setfill('0') << "\\x" << num;
+	//cout << "String: " << c.str() << endl;
+	return c.str();
 }
 
+std::string drive()
+{
+	std::stringstream s;
+	unsigned int vel, rad;
+	unsigned int high, low;
+	s << intToHexString(137);
+	std::cout << "Velocity (-500 – 500 mm/s): ";
+	std::cin >> vel;
+	splitIntoTwoBytes(vel, high, low);
+	s << intToHexString(high) << intToHexString(low);
+	std::cout << "Radius (-2000 – 2000 mm): ";
+	std::cin >> rad;
+	splitIntoTwoBytes(rad, high, low);
+	s << intToHexString(high) << intToHexString(low);
+	return s.str();
+}
 
 }
 

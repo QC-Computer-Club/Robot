@@ -39,12 +39,16 @@ int main(int argc, char* argv[])
 	 cout << "Num: " << num << endl << "High: " << high << endl << "Low: " << low << endl;
 */
 
-	stringstream command;
+	/*stringstream command;
 	command << "/bin/echo -e '";
-	for(int i =1; i < argc; i++)
-		command << intToHex(atoi(argv[i]));
+	for(int i = 1; i < argc; i++)
+		command << intToHexString(atoi(argv[i]));
 	command << '\'';
-	cout << command.str().c_str() << endl;
+	cout << endl << command.str() << endl; */
+
+	stringstream command;
+	command << drive();
+	cout << command.str() << endl;
 
 	return 0;
 }
